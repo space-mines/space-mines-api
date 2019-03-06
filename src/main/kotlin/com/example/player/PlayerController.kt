@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PlayerController(private val repository: PlayerRepository) {
 
-    @GetMapping("/players")
-    fun list(): ResponseEntity<List<Player>> {
-        val players = repository.findAll().toList()
-        return ResponseEntity(players, HttpStatus.OK)
+    @GetMapping("/player")
+    fun first(): ResponseEntity<PlayerRep> {
+        println("Finding first...")
+        val entity = repository.findAll().first()
+        println("Found player with ID=${entity.id}")
+        val rep = PlayerRep.fromEntity(entity)
+        println("Returning response ${rep}")
+        return ResponseEntity(rep, HttpStatus.OK)
     }
 
 }

@@ -4,13 +4,13 @@ import java.time.Instant
 import javax.persistence.Entity
 import javax.persistence.Id
 
-@Entity
-data class Player(
+@Entity(name = "player")
+data class PlayerEntity(
         @Id
         val id: Long,
         val username: String,
         val password: String,
         val email: String,
         val createdOn: Instant,
-        val lastLogin: Instant
+        val lastLogin: Instant? = null
 )
