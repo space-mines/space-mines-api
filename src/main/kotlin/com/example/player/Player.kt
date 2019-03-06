@@ -1,4 +1,4 @@
-package com.example
+package com.example.player
 
 import java.time.Instant
 import javax.persistence.Entity
