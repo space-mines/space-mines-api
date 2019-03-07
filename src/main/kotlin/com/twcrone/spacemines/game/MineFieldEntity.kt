@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 
 @Entity(name = "mine_field")
-class MineFieldEntity(@Id val id: Long) {
+class MineFieldEntity(@Id val id: Long, val size: Int) {
     @OneToMany(mappedBy = "mineField")
     val mines: MutableSet<MineEntity> = HashSet()
 }

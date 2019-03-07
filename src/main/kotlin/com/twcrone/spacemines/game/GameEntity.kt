@@ -1,12 +1,12 @@
 package com.twcrone.spacemines.game
 
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
+import javax.persistence.*
 
 @Entity(name = "game")
-class GameEntity(@Id val id: Long) {
+class GameEntity(
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        var id: Long = 0
+) {
     @OneToMany(mappedBy = "game")
     val minePods: MutableSet<MinePodEntity> = HashSet()
 

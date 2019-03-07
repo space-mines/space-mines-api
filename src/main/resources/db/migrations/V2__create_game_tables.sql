@@ -1,15 +1,17 @@
-DROP TABLE IF EXISTS  "mine_field" CASCADE;
-DROP TABLE IF EXISTS  "game" CASCADE ;
+DROP TABLE IF EXISTS "mine";
+DROP TABLE IF EXISTS "mine_pod";
+DROP TABLE IF EXISTS "game";
+DROP TABLE IF EXISTS "mine_field";
 
 CREATE TABLE IF NOT EXISTS "mine_field"
 (
-  "id"   SERIAL PRIMARY KEY,
+  "id"   BIGINT PRIMARY KEY,
   "size" INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "mine"
 (
-  "id"            SERIAL PRIMARY KEY,
+  "id"            BIGINT PRIMARY KEY,
   "mine_field_id" BIGINT  NOT NULL,
   "x"             INTEGER NOT NULL,
   "y"             INTEGER NOT NULL,
@@ -20,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "mine"
 
 CREATE TABLE IF NOT EXISTS "game"
 (
-  "id" SERIAL PRIMARY KEY,
+  "id"            BIGINT PRIMARY KEY,
   "mine_field_id" BIGINT NOT NULL,
 
   FOREIGN KEY ("mine_field_id") REFERENCES "mine_field" ("id")
@@ -28,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "game"
 
 CREATE TABLE IF NOT EXISTS "mine_pod"
 (
-  "id"        SERIAL PRIMARY KEY,
+  "id"        BIGINT PRIMARY KEY,
   "game_id"   INTEGER NOT NULL,
   "x"         INTEGER NOT NULL,
   "y"         INTEGER NOT NULL,
@@ -43,4 +45,4 @@ INSERT INTO mine_field(id, size)
 VALUES (1, 3);
 
 INSERT INTO mine(id, mine_field_id, x, y, z)
-VALUES (DEFAULT, 1, 1, 1, 1);
+VALUES (1, 1, 1, 1, 1);
