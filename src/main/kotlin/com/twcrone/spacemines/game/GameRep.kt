@@ -1,4 +1,4 @@
-package com.example.game
+package com.twcrone.spacemines.game
 
 data class GameRep(val id: Long) {
     val minePods: MutableSet<MinePodRep> = HashSet()

@@ -1,4 +1,4 @@
-package com.example.player
+package com.twcrone.spacemines.player
 
 import org.springframework.data.repository.CrudRepository
 

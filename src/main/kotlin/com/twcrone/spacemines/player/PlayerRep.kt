@@ -1,4 +1,4 @@
-package com.example.player
+package com.twcrone.spacemines.player
 
 data class PlayerRep(
     val id: Long,
@@ -7,6 +7,6 @@ data class PlayerRep(
 ) {
     companion object {
         fun fromEntity(entity: PlayerEntity) =
-            PlayerRep(id = entity.id, username = entity.username, email = entity.email)
+                PlayerRep(id = entity.id, username = entity.username, email = entity.email)
     }
 }

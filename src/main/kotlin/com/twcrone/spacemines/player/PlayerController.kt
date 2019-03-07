@@ -1,4 +1,4 @@
-package com.example.player
+package com.twcrone.spacemines.player
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

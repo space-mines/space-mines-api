@@ -1,4 +1,4 @@
-package com.example.player
+package com.twcrone.spacemines.player
 
 import javax.persistence.Entity
 import javax.persistence.Id
