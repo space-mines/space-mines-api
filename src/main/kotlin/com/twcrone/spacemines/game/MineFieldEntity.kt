@@ -1,4 +1,4 @@
-package com.twcrone.spacemines.minefield
+package com.twcrone.spacemines.game
 
 import javax.persistence.Entity
 import javax.persistence.Id
