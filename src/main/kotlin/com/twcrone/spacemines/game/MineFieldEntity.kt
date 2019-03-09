@@ -8,7 +8,7 @@ import javax.persistence.OneToMany
 @Entity(name = "mine_field")
 class MineFieldEntity(@Id val id: Long = 0, val size: Int = 3) {
     @OneToMany(mappedBy = "mineField")
-    val mines: MutableSet<MineEntity> = HashSet()
+    val mines: MutableSet<MineEntity> = mutableSetOf()
 }
 
 @Entity(name = "mine")
