@@ -11,7 +11,7 @@ class PodEntity(
         val x: Int,
         val y: Int,
         val z: Int,
-        val radiation: Int = 0,
+        val radiation: Int = -1,
         val flagged: Boolean = false
 ) {
     @Id

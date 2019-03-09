@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS "pod"
   "x"         INTEGER NOT NULL,
   "y"         INTEGER NOT NULL,
   "z"         INTEGER NOT NULL,
-  "radiation" INTEGER NOT NULL,
+  "radiation" INTEGER DEFAULT -1,
   "flagged"   BOOLEAN DEFAULT FALSE,
 
   FOREIGN KEY ("game_id") REFERENCES "game" ("id")
