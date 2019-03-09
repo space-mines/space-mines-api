@@ -35,4 +35,10 @@ dependencies {
 
     compile 'org.postgresql:postgresql:9.4.1212'
     compile 'com.zaxxer:HikariCP:2.6.0'
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+test {
+    systemProperty "spring.profiles.active", "test"
 }
