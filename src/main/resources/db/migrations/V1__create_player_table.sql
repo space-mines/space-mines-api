@@ -1,3 +1,5 @@
+DROP table if exists "player";
+
 CREATE TABLE player
 (
   id         serial PRIMARY KEY,
