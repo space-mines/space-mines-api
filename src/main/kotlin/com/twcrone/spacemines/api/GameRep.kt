@@ -1,13 +1,16 @@
-package com.twcrone.spacemines.game
+package com.twcrone.spacemines.api
+
+import com.twcrone.spacemines.data.GameEntity
 
 data class GameRep(val id: Long) {
-    val minePods: MutableSet<MinePodRep> = HashSet()
+
+    val pods: MutableSet<PodRep> = HashSet()
 
     companion object {
         fun fromEntity(entity: GameEntity): GameRep {
             val game = GameRep(id = entity.id)
-            entity.minePods.forEach{ minePod ->
-                game.minePods.add(MinePodRep(
+            entity.pods.forEach{ minePod ->
+                game.pods.add(PodRep(
                         id = minePod.id,
                         x = minePod.x,
                         y = minePod.y,
@@ -20,4 +23,5 @@ data class GameRep(val id: Long) {
     }
 }
 
-data class MinePodRep(val id: Long, val x: Int, val y: Int, val z: Int, val radiation: Int, val flagged: Boolean)
+data class PodRep(val id: Long, val x: Int, val y: Int, val z: Int,
+                  val radiation: Int = -1, val flagged: Boolean)

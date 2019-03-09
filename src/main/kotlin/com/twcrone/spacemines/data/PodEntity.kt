@@ -1,9 +1,9 @@
-package com.twcrone.spacemines.game
+package com.twcrone.spacemines.data
 
 import javax.persistence.*
 
-@Entity(name = "mine_pod")
-class MinePodEntity(
+@Entity(name = "pod")
+class PodEntity(
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "game_id")
         val game: GameEntity? = null,

@@ -1,4 +1,4 @@
-package com.twcrone.spacemines.game
+package com.twcrone.spacemines.data
 
 import org.assertj.core.api.Assertions.*
 import org.junit.Test
@@ -24,7 +24,7 @@ class GameServiceTest {
 
         assertThat(game).isNotNull()
         assertThat(game.mineField).isEqualTo(mineField)
-        assertThat(game.minePods.size).isEqualTo(Math.pow(mineField.size.toDouble(), mineField.size.toDouble()).toInt())
+        assertThat(game.pods.size).isEqualTo(Math.pow(mineField.size.toDouble(), mineField.size.toDouble()).toInt())
         assertThat(game.id).isGreaterThan(0)
     }
 

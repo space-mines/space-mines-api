@@ -1,4 +1,4 @@
-package com.twcrone.spacemines.game
+package com.twcrone.spacemines.data
 
 import org.hibernate.annotations.Cascade
 import org.hibernate.annotations.CascadeType
@@ -14,6 +14,6 @@ class GameEntity(@ManyToOne(fetch = FetchType.LAZY, optional = false)
 
     @OneToMany(mappedBy = "game")
     @Cascade(CascadeType.ALL)
-    val minePods: MutableSet<MinePodEntity> = HashSet()
+    val pods: MutableSet<PodEntity> = HashSet()
 
 }

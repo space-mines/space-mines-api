@@ -1,4 +1,4 @@
-package com.twcrone.spacemines.game
+package com.twcrone.spacemines.data
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +12,7 @@ open class GameService(private val repository: GameRepository) {
         repeat(mineField.size) { x ->
             repeat(mineField.size) { y ->
                 repeat(mineField.size) { z ->
-                    game.minePods.add(MinePodEntity(game = game,x = x, y = y, z = z))
+                    game.pods.add(PodEntity(game = game,x = x, y = y, z = z))
                 }
             }
         }
@@ -22,7 +22,13 @@ open class GameService(private val repository: GameRepository) {
     @Transactional
     open fun get(id: Long): GameEntity {
         val game = repository.findOne(id)
-        game.minePods
+        game.pods
         return repository.save(game)
+    }
+
+    @Transactional
+    open fun listIds(): List<Long> {
+        val games = repository.findAll()
+        return games.map { it.id }
     }
 }
