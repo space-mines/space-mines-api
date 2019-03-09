@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 class GameController(private val service: GameService,
                      private val mineFieldRepository: MineFieldRepository) {
 
+    @CrossOrigin
     @GetMapping("/games")
     fun listGameIds(): ResponseEntity<List<Long>> {
         println("List game IDs...")
@@ -19,6 +20,7 @@ class GameController(private val service: GameService,
         return ResponseEntity(list, HttpStatus.OK)
     }
 
+    @CrossOrigin
     @GetMapping("/game/{id}")
     fun getGame(@PathVariable id: Long): ResponseEntity<GameRep> {
         println("Finding data...")
@@ -27,6 +29,7 @@ class GameController(private val service: GameService,
         return ResponseEntity(GameRep.fromEntity(entity), HttpStatus.OK)
     }
 
+    @CrossOrigin
     @PostMapping("/game",
             consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE),
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
