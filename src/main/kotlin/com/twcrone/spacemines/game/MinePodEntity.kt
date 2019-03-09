@@ -4,14 +4,17 @@ import javax.persistence.*
 
 @Entity(name = "mine_pod")
 class MinePodEntity(
-        @Id @GeneratedValue(strategy = GenerationType.AUTO)
-        var id: Long = 0,
+        @ManyToOne(fetch = FetchType.LAZY, optional = false)
+        @JoinColumn(name = "game_id")
+        val game: GameEntity? = null,
+
         val x: Int,
         val y: Int,
         val z: Int,
         val radiation: Int = 0,
         val flagged: Boolean = false
 ) {
-    @ManyToOne
-    lateinit var game: GameEntity
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long = 0
 }

@@ -1,3 +1,5 @@
+CREATE SEQUENCE hibernate_sequence START 1;
+
 DROP TABLE IF EXISTS "mine";
 DROP TABLE IF EXISTS "mine_pod";
 DROP TABLE IF EXISTS "game";

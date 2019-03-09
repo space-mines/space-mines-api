@@ -14,6 +14,6 @@ class GameService(val repository: GameRepository) {
                 }
             }
         }
-        return game
+        return repository.save(game)
     }
 }
