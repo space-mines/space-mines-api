@@ -22,8 +22,7 @@ class GameController(private val repository: GameRepository,
             produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
     fun createGame(): ResponseEntity<GameRep> {
         val mineField = mineFieldRepository.findOne(1)
-        val game = GameEntity()
-        game.mineField = mineField
+        val game = GameEntity(mineField)
         val size = mineField.size
         repeat(size) { x ->
             repeat(size) { y ->
