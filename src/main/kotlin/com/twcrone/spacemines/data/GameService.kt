@@ -27,6 +27,17 @@ open class GameService(private val repository: GameRepository) {
     }
 
     @Transactional
+    open fun reveal(id:Long, podId: Long): GameEntity {
+        val game = repository.findOne(id)
+        val pod = game.pods.find { it.id == podId }
+        val sector = game.mineField?.sectors?.find {
+            it.x == pod!!.x && it.y == pod.y && it.z == pod.z
+        }
+        pod!!.radiation = sector!!.radiation
+        return repository.save(game)
+    }
+
+    @Transactional
     open fun listIds(): List<Long> {
         val games = repository.findAll()
         return games.map { it.id }

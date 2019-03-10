@@ -12,6 +12,16 @@ class GameController(private val service: GameService,
                      private val mineFieldRepository: MineFieldRepository) {
 
     @CrossOrigin
+    @PostMapping("/game",
+            consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE),
+            produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+    fun createGame(): ResponseEntity<GameRep> {
+        val mineField = mineFieldRepository.findOne(1)
+        val saved = service.create(mineField)
+        return ResponseEntity(GameRep.fromEntity(saved), HttpStatus.OK)
+    }
+
+    @CrossOrigin
     @GetMapping("/games")
     fun listGameIds(): ResponseEntity<List<Long>> {
         println("List game IDs...")
@@ -30,13 +40,13 @@ class GameController(private val service: GameService,
     }
 
     @CrossOrigin
-    @PostMapping("/game",
-            consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE),
-            produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
-    fun createGame(): ResponseEntity<GameRep> {
-        val mineField = mineFieldRepository.findOne(1)
-        val saved = service.create(mineField)
-        return ResponseEntity(GameRep.fromEntity(saved), HttpStatus.OK)
+    @PatchMapping("/game/{id}/pod/{podId}")
+    fun revealPod(@PathVariable id: Long, @PathVariable podId: Long): ResponseEntity<GameRep> {
+        println("Revealing pod...")
+        val entity = service.reveal(id, podId)
+        println("Revealed pod...")
+        return ResponseEntity(GameRep.fromEntity(entity), HttpStatus.OK)
     }
+
 
 }

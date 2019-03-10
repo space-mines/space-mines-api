@@ -11,8 +11,8 @@ class PodEntity(
         val x: Int,
         val y: Int,
         val z: Int,
-        val radiation: Int = -1,
-        val flagged: Boolean = false
+        var radiation: Int = -1,
+        var flagged: Boolean = false
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
