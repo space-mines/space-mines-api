@@ -16,10 +16,13 @@ String getKey(x, y, z) {
 	"$x-$y-$z"
 }
 
-int dimension = 3
+def levels = []
+levels[1] =	[id:1, dimension: 3, mines: [x: 0, y: 0, z: 0]]
+levels[2] = [id: 2, dimension: 4, mines: [[x: 1, y: 1, z: 1], [x: 2, y: 2, z: 2]]]
 
-def mine = [x: 0, y: 0, z: 0]
-def mines = [mine]
+def level = levels[2]
+def dimension = level.dimension
+
 def minefield = [:]
 
 for(int x = 0; x < dimension; ++x) {
@@ -31,7 +34,7 @@ for(int x = 0; x < dimension; ++x) {
 	}
 }
 
-mines.each {
+level.mines.each {
 	String key = "${it.x}-${it.y}-${it.z}"
 	Sector sector = minefield[key] as Sector
 	sector.isMine = true
@@ -57,8 +60,11 @@ def addRadiation(minefield, x, y, z) {
 	}
 }
 
-def minefieldId = 1
+def minefieldId = level.id
 def id = minefieldId * 100
+
+println "INSERT INTO mine_field(id, size)VALUES (${level.id}, ${level.dimension});"
+println ""
 
 minefield.each {
 	println "INSERT INTO sector(id, mine_field_id, x, y, z, radiation, mine) VALUES (${id++}, $minefieldId, ${it.value.x}, ${it.value.y}, ${it.value.z}, ${it.value.radiation}, ${it.value.isMine});"
