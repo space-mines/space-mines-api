@@ -48,5 +48,13 @@ class GameController(private val service: GameService,
         return ResponseEntity(GameRep.fromEntity(entity), HttpStatus.OK)
     }
 
+    @CrossOrigin
+    @PutMapping("/game/{id}/pod/{podId}")
+    fun markPod(@PathVariable id: Long, @PathVariable podId: Long): ResponseEntity<GameRep> {
+        println("Marking pod...")
+        val entity = service.mark(id, podId)
+        println("Marked pod...")
+        return ResponseEntity(GameRep.fromEntity(entity), HttpStatus.OK)
+    }
 
 }

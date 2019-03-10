@@ -27,6 +27,17 @@ open class GameService(private val repository: GameRepository) {
     }
 
     @Transactional
+    open fun mark(id:Long, podId: Long): GameEntity {
+        val game = repository.findOne(id)
+        val pod = game.pods.find { it.id == podId }
+        if(pod!!.radiation > -1) {
+            return game
+        }
+        pod.flagged = !pod.flagged
+        return repository.save(game)
+    }
+
+    @Transactional
     open fun reveal(id:Long, podId: Long): GameEntity {
         val game = repository.findOne(id)
         val pod = game.pods.find { it.id == podId }
