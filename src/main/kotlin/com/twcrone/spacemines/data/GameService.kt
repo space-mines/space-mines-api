@@ -51,10 +51,34 @@ open class GameService(private val repository: GameRepository) {
             }
         }
         else {
-            pod!!.radiation = sector!!.radiation
+            pod!!.radiation = sector.radiation
+            revealEmptySectors(pod, game)
         }
         return repository.save(game)
     }
+
+    private fun close(i1: Int, i2: Int): Boolean {
+        return i2 < i1 + 2 && i2 > i1 - 2
+    }
+
+    private fun findSectorFor(pod: PodEntity, mineField: MineFieldEntity) = mineField.sectors.find {
+        it.x == pod.x && it.y == pod.y && it.z == pod.z
+    }
+
+    private fun revealEmptySectors(pod: PodEntity, game: GameEntity) {
+        if(pod.radiation != 0) { return }
+        val pods = game.pods
+        pods.forEach {
+            if(it.radiation == -1) {
+                if(close(it.x, pod.x) && close(it.y, pod.y) && close(it.z, pod.z)) {
+                    val sector = findSectorFor(it, game.mineField!!)
+                    it.radiation = sector!!.radiation
+                    revealEmptySectors(it, game)
+                }
+            }
+        }
+    }
+
 
     @Transactional
     open fun listIds(): List<Long> {
