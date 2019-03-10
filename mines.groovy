@@ -57,8 +57,8 @@ def addRadiation(minefield, x, y, z) {
 	}
 }
 
-def id = 1
 def minefieldId = 1
+def id = minefieldId * 100
 
 minefield.each {
 	println "INSERT INTO sector(id, mine_field_id, x, y, z, radiation, mine) VALUES (${id++}, $minefieldId, ${it.value.x}, ${it.value.y}, ${it.value.z}, ${it.value.radiation}, ${it.value.isMine});"
