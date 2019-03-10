@@ -33,7 +33,15 @@ open class GameService(private val repository: GameRepository) {
         val sector = game.mineField?.sectors?.find {
             it.x == pod!!.x && it.y == pod.y && it.z == pod.z
         }
-        pod!!.radiation = sector!!.radiation
+        if(sector!!.mine) {
+            game.pods.forEach {
+                it.flagged = false
+                it.radiation = -1
+            }
+        }
+        else {
+            pod!!.radiation = sector!!.radiation
+        }
         return repository.save(game)
     }
 
