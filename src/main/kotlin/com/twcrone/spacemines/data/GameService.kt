@@ -23,7 +23,7 @@ open class GameService(private val repository: GameRepository) {
     open fun get(id: Long): GameEntity {
         val game = repository.findOne(id)
         game.pods
-        return repository.save(game)
+        return game
     }
 
     @Transactional
