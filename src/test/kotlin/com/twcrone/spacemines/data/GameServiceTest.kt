@@ -19,12 +19,12 @@ class GameServiceTest {
 
     @Test
     fun `get game for player initializes first game`() {
-        val game = service.findOrCreateGameFor(1)
+        val player = service.findOrCreateGameFor(1)
 
-        assertThat(game).isNotNull()
-//        assertThat(game.mineField).isEqualTo(mineField)
-//        assertThat(game.pods.size).isEqualTo(Math.pow(mineField.size.toDouble(), mineField.size.toDouble()).toInt())
-//        assertThat(game.id).isGreaterThan(0)
+        assertThat(player).isNotNull()
+        assertThat(player.game).isNotNull()
+        assertThat(player.game?.mineField?.id).isEqualTo(1)
+        assertThat(player.game?.id).isEqualTo(player.id)
     }
 
 }
