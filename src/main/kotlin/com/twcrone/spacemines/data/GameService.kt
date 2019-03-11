@@ -1,14 +1,31 @@
 package com.twcrone.spacemines.data
 
+import com.twcrone.spacemines.player.PlayerEntity
+import com.twcrone.spacemines.player.PlayerRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-open class GameService(private val repository: GameRepository) {
+open class GameService(
+        private val playerRepository: PlayerRepository,
+        private val repository: GameRepository,
+        private val mineFieldRepository: MineFieldRepository) {
 
     @Transactional
-    open fun create(mineField: MineFieldEntity): GameEntity {
-        val game = GameEntity(mineField)
+    open fun findOrCreateGameFor(playerId: Long): PlayerEntity {
+        val player = playerRepository.findOne(playerId)
+        if(player.game == null) {
+            val firstLevel = mineFieldRepository.findOne(1)
+            player.game = build(player, firstLevel)
+            playerRepository.save(player)
+        }
+        return player
+    }
+
+    private fun build(
+            player: PlayerEntity,
+            mineField: MineFieldEntity): GameEntity {
+        val game = GameEntity(player, mineField)
         repeat(mineField.size) { x ->
             repeat(mineField.size) { y ->
                 repeat(mineField.size) { z ->
@@ -16,7 +33,7 @@ open class GameService(private val repository: GameRepository) {
                 }
             }
         }
-        return repository.save(game)
+        return game
     }
 
     @Transactional

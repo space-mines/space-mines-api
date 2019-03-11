@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS "game"
   "id"            BIGINT PRIMARY KEY,
   "mine_field_id" BIGINT NOT NULL,
 
-  FOREIGN KEY ("mine_field_id") REFERENCES "mine_field" ("id")
+  FOREIGN KEY ("mine_field_id") REFERENCES "mine_field" ("id"),
+  FOREIGN KEY ("id") REFERENCES "player" ("id")
 );
 
 CREATE TABLE IF NOT EXISTS "pod"

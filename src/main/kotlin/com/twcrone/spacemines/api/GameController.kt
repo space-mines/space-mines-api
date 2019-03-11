@@ -12,16 +12,6 @@ class GameController(private val service: GameService,
                      private val mineFieldRepository: MineFieldRepository) {
 
     @CrossOrigin
-    @PostMapping("/game/level/{level}",
-            consumes = arrayOf(MediaType.APPLICATION_JSON_VALUE),
-            produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
-    fun createGame(@PathVariable level: Long): ResponseEntity<GameRep> {
-        val mineField = mineFieldRepository.findOne(level)
-        val saved = service.create(mineField)
-        return ResponseEntity(GameRep.fromEntity(saved), HttpStatus.OK)
-    }
-
-    @CrossOrigin
     @GetMapping("/games")
     fun listGameIds(): ResponseEntity<List<Long>> {
         println("List game IDs...")
