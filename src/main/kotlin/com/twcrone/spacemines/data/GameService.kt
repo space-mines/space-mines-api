@@ -65,8 +65,10 @@ open class GameService(
             }
         }
         else {
-            pod!!.radiation = sector.radiation
-            revealEmptySectors(pod, game)
+            if(pod?.flagged == false) {
+                pod.radiation = sector.radiation
+                revealEmptySectors(pod, game)
+            }
         }
         return this.gameRepository.save(game)
     }
