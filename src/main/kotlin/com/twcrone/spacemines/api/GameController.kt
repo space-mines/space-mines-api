@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class GameController(private val service: GameService,
-                     private val mineFieldRepository: LevelRepository) {
+class GameController(private val service: GameService) {
 
     @CrossOrigin
     @GetMapping("/games")
