@@ -86,8 +86,10 @@ open class GameService(
             if(it.radiation == -1) {
                 if(close(it.x, pod.x) && close(it.y, pod.y) && close(it.z, pod.z)) {
                     val sector = findSectorFor(it, game.level!!)
-                    it.radiation = sector!!.radiation
-                    revealEmptySectors(it, game)
+                    if(!pod.flagged) {
+                        it.radiation = sector!!.radiation
+                        revealEmptySectors(it, game)
+                    }
                 }
             }
         }
