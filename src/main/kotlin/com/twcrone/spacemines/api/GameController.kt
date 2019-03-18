@@ -1,15 +1,14 @@
 package com.twcrone.spacemines.api
 
 import com.twcrone.spacemines.data.GameService
-import com.twcrone.spacemines.data.MineFieldRepository
+import com.twcrone.spacemines.data.LevelRepository
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class GameController(private val service: GameService,
-                     private val mineFieldRepository: MineFieldRepository) {
+                     private val mineFieldRepository: LevelRepository) {
 
     @CrossOrigin
     @GetMapping("/games")

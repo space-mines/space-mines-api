@@ -1,22 +1,17 @@
 package com.twcrone.spacemines.data
 
-import com.twcrone.spacemines.player.PlayerEntity
 import org.hibernate.annotations.Cascade
 import org.hibernate.annotations.CascadeType
 import javax.persistence.*
 
 @Entity(name = "game")
 class GameEntity(
-        @OneToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "id")
-        @MapsId
-        val player: PlayerEntity,
-
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
-        @JoinColumn(name = "mine_field_id")
-        val mineField: MineFieldEntity? = null){
+        @JoinColumn(name = "level_id")
+        val level: Level? = null){
     @Id
-    val id: Long = player.id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long = 0
 
     @OneToMany(mappedBy = "game")
     @Cascade(CascadeType.ALL)

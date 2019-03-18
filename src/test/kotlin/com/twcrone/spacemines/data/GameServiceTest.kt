@@ -14,17 +14,14 @@ class GameServiceTest {
     @Autowired
     private lateinit var service: GameService
 
-    @Autowired
-    private lateinit var mineFieldRepository: MineFieldRepository
-
     @Test
     fun `get game for player initializes first game`() {
         val player = service.findOrCreateGameFor(1)
 
         assertThat(player).isNotNull()
         assertThat(player.game).isNotNull()
-        assertThat(player.game?.mineField?.id).isEqualTo(1)
-        assertThat(player.game?.id).isEqualTo(player.id)
+        assertThat(player.game?.level?.id).isEqualTo(1)
+        assertThat(player.game?.id).isGreaterThan(0)
     }
 
 }
