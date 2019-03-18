@@ -19,6 +19,16 @@ class GameController(private val service: GameService) {
     }
 
     @CrossOrigin
+    @GetMapping("/player/{id}/game")
+    fun getPlayerGame(@PathVariable id: Long): ResponseEntity<GameRep> {
+        println("Finding game for player $id...")
+        val entity = service.findOrCreateGameFor(id)
+        val game = entity.game
+        println("Found player with game ID=${game!!.id}")
+        return ResponseEntity(GameRep.fromEntity(game), HttpStatus.OK)
+    }
+
+    @CrossOrigin
     @GetMapping("/game/{id}")
     fun getGame(@PathVariable id: Long): ResponseEntity<GameRep> {
         println("Finding data...")
