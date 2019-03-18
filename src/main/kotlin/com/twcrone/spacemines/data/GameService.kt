@@ -55,6 +55,9 @@ open class GameService(
     open fun reveal(id:Long, podId: Long): GameEntity {
         val game = gameRepository.findOne(id)
         val pod = game.pods.find { it.id == podId }
+        if(pod!!.flagged) {
+            return game
+        }
         val sector = game.level?.sectors?.find {
             it.x == pod!!.x && it.y == pod.y && it.z == pod.z
         }
