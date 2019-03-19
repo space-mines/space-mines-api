@@ -82,7 +82,7 @@ open class GameService(
     }
 
     private fun reset(game: GameEntity): GameEntity {
-        game.pods = HashSet()
+        game.pods.clear()
         val level = game.level
         val size = level!!.size
         repeat(size) { x ->

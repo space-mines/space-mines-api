@@ -15,7 +15,7 @@ class GameEntity(
 
     @OneToMany(mappedBy = "game", orphanRemoval = true)
     @Cascade(CascadeType.ALL)
-    var pods: MutableSet<PodEntity> = HashSet()
+    val pods: MutableSet<PodEntity> = HashSet()
 
     fun allMinesFlagged(): Boolean {
         val flagged = pods.filter { it.flagged }
