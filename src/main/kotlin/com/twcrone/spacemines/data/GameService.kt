@@ -47,6 +47,12 @@ open class GameService(
             return game
         }
         pod.flagged = !pod.flagged
+        if(game.allMinesFlagged()) {
+            val levelId = game.level!!.id + 1
+            val level = levelRepository.findOne(levelId)
+            game.level = level ?: levelRepository.findOne(1)
+            reset(game)
+        }
         return this.gameRepository.save(game)
     }
 
@@ -71,12 +77,6 @@ open class GameService(
                 pod.radiation = sector.radiation
                 revealEmptySectors(pod, game)
             }
-        }
-        if(game.allMinesFlagged()) {
-            val levelId = game.level!!.id + 1
-            val level = levelRepository.findOne(levelId)
-            game.level = level ?: levelRepository.findOne(1)
-            reset(game)
         }
         return this.gameRepository.save(game)
     }
