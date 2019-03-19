@@ -9,6 +9,10 @@ import javax.persistence.OneToMany
 class Level(@Id val id: Long = 0, val size: Int = 3) {
     @OneToMany(mappedBy = "level")
     val sectors: MutableSet<Sector> = mutableSetOf()
+
+    fun listSectorsWithMines(): List<Sector> {
+        return sectors.filter { it.hasMine }
+    }
 }
 
 @Entity(name = "sector")

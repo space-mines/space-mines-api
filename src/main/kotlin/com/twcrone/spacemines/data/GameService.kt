@@ -72,7 +72,27 @@ open class GameService(
                 revealEmptySectors(pod, game)
             }
         }
+        if(game.allMinesFlagged()) {
+            val levelId = game.level!!.id + 1
+            val level = levelRepository.findOne(levelId)
+            game.level = level ?: levelRepository.findOne(1)
+            reset(game)
+        }
         return this.gameRepository.save(game)
+    }
+
+    private fun reset(game: GameEntity): GameEntity {
+        game.pods = HashSet()
+        val level = game.level
+        val size = level!!.size
+        repeat(size) { x ->
+            repeat(size) { y ->
+                repeat(size) { z ->
+                    game.pods.add(PodEntity(game = game,x = x, y = y, z = z))
+                }
+            }
+        }
+        return game
     }
 
     private fun close(i1: Int, i2: Int): Boolean {
