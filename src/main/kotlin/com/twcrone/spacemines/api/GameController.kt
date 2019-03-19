@@ -10,15 +10,6 @@ import org.springframework.web.bind.annotation.*
 class GameController(private val service: GameService) {
 
     @CrossOrigin
-    @GetMapping("/games")
-    fun listGameIds(): ResponseEntity<List<Long>> {
-        println("List game IDs...")
-        val list = service.listIds()
-        println("Found ${list.size} ids")
-        return ResponseEntity(list, HttpStatus.OK)
-    }
-
-    @CrossOrigin
     @GetMapping("/player/{id}/game")
     fun getPlayerGame(@PathVariable id: Long): ResponseEntity<GameRep> {
         println("Finding game for player $id...")

@@ -20,8 +20,7 @@ open class GameService(
         return player
     }
 
-    private fun build(
-            level: Level): GameEntity {
+    private fun build(level: Level): GameEntity {
         val game = GameEntity(level)
         repeat(level.size) { x ->
             repeat(level.size) { y ->
@@ -68,7 +67,7 @@ open class GameService(
             }
         }
         else {
-            if(pod?.flagged == false) {
+            if(!pod.flagged) {
                 pod.radiation = sector.radiation
                 revealEmptySectors(pod, game)
             }
@@ -100,10 +99,4 @@ open class GameService(
         }
     }
 
-
-    @Transactional
-    open fun listIds(): List<Long> {
-        val games = gameRepository.findAll()
-        return games.map { it.id }
-    }
 }
