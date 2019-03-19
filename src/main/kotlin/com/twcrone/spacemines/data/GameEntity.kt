@@ -13,7 +13,7 @@ class GameEntity(
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long = 0
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", orphanRemoval = true)
     @Cascade(CascadeType.ALL)
     var pods: MutableSet<PodEntity> = HashSet()
 
