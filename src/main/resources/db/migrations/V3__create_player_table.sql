@@ -11,3 +11,6 @@ CREATE TABLE player
 
 INSERT INTO player(id, username, password, email)
 VALUES (1, 'twcrone', '', 'twcrone@gmail.com');
+
+INSERT INTO player(id, username, password, email)
+VALUES (12, 'tkcrone', '', 'tkcrone@gmail.com');
