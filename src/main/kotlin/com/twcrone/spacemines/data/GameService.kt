@@ -5,14 +5,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 open class GameService(
-        private val playerRepository: PlayerRepository,
-        private val gameRepository: GameRepository,
-        private val levelRepository: LevelRepository
-){
+  private val playerRepository: PlayerRepository,
+  private val gameRepository: GameRepository,
+  private val levelRepository: LevelRepository
+) {
     @Transactional
     open fun findOrCreateGameFor(playerId: Long): PlayerEntity {
         val player = playerRepository.findOne(playerId)
-        if(player.game == null) {
+        if (player.game == null) {
             val firstLevel = levelRepository.findOne(1)
             player.game = build(firstLevel)
             playerRepository.save(player)
@@ -25,7 +25,7 @@ open class GameService(
         repeat(level.size) { x ->
             repeat(level.size) { y ->
                 repeat(level.size) { z ->
-                    game.pods.add(PodEntity(game = game,x = x, y = y, z = z))
+                    game.pods.add(PodEntity(game = game, x = x, y = y, z = z))
                 }
             }
         }
@@ -40,14 +40,14 @@ open class GameService(
     }
 
     @Transactional
-    open fun mark(id:Long, podId: Long): GameEntity {
+    open fun mark(id: Long, podId: Long): GameEntity {
         val game = gameRepository.findOne(id)
         val pod = game.pods.find { it.id == podId }
-        if(pod!!.radiation > -1) {
+        if (pod!!.radiation > -1) {
             return game
         }
         pod.flagged = !pod.flagged
-        if(game.allMinesFlagged()) {
+        if (game.allMinesFlagged()) {
             val levelId = game.level!!.id + 1
             val level = levelRepository.findOne(levelId)
             game.level = level ?: levelRepository.findOne(1)
@@ -57,23 +57,22 @@ open class GameService(
     }
 
     @Transactional
-    open fun reveal(id:Long, podId: Long): GameEntity {
+    open fun reveal(id: Long, podId: Long): GameEntity {
         val game = gameRepository.findOne(id)
         val pod = game.pods.find { it.id == podId }
-        if(pod!!.flagged) {
+        if (pod!!.flagged) {
             return game
         }
         val sector = game.level?.sectors?.find {
             it.x == pod!!.x && it.y == pod.y && it.z == pod.z
         }
-        if(sector!!.hasMine) {
+        if (sector!!.hasMine) {
             game.pods.forEach {
                 it.flagged = false
                 it.radiation = -1
             }
-        }
-        else {
-            if(!pod.flagged) {
+        } else {
+            if (!pod.flagged) {
                 pod.radiation = sector.radiation
                 revealEmptySectors(pod, game)
             }
@@ -88,7 +87,7 @@ open class GameService(
         repeat(size) { x ->
             repeat(size) { y ->
                 repeat(size) { z ->
-                    game.pods.add(PodEntity(game = game,x = x, y = y, z = z))
+                    game.pods.add(PodEntity(game = game, x = x, y = y, z = z))
                 }
             }
         }
@@ -104,13 +103,13 @@ open class GameService(
     }
 
     private fun revealEmptySectors(pod: PodEntity, game: GameEntity) {
-        if(pod.radiation != 0) { return }
+        if (pod.radiation != 0) { return }
         val pods = game.pods
         pods.forEach {
-            if(it.radiation == -1) {
-                if(close(it.x, pod.x) && close(it.y, pod.y) && close(it.z, pod.z)) {
+            if (it.radiation == -1) {
+                if (close(it.x, pod.x) && close(it.y, pod.y) && close(it.z, pod.z)) {
                     val sector = findSectorFor(it, game.level!!)
-                    if(!pod.flagged) {
+                    if (!pod.flagged) {
                         it.radiation = sector!!.radiation
                         revealEmptySectors(it, game)
                     }
@@ -118,5 +117,4 @@ open class GameService(
             }
         }
     }
-
 }

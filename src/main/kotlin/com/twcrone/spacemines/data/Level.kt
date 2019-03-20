@@ -16,8 +16,14 @@ class Level(@Id val id: Long = 0, val size: Int = 3) {
 }
 
 @Entity(name = "sector")
-class Sector(@Id val id: Long, val x: Int, val y: Int, val z: Int,
-             val radiation: Int = 0, val hasMine: Boolean = false) {
+class Sector(
+  @Id val id: Long,
+  val x: Int,
+  val y: Int,
+  val z: Int,
+  val radiation: Int = 0,
+  val hasMine: Boolean = false
+) {
     @ManyToOne
     lateinit var level: Level
 }

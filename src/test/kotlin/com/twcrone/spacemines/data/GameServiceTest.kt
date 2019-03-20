@@ -1,6 +1,6 @@
 package com.twcrone.spacemines.data
 
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,5 +23,4 @@ class GameServiceTest {
         assertThat(player.game?.level?.id).isEqualTo(1)
         assertThat(player.game?.id).isGreaterThan(0)
     }
-
 }
