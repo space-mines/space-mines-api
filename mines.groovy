@@ -18,9 +18,23 @@ String getKey(x, y, z) {
 
 def levels = []
 levels[1] =	[id:1, dimension: 3, mines: [x: 0, y: 0, z: 0]]
-levels[2] = [id: 2, dimension: 4, mines: [[x: 1, y: 1, z: 1], [x: 2, y: 2, z: 2]]]
+levels[2] = [id: 2, dimension: 4, mines: [[x: 0, y: 1, z: 1],
+										  [x: 3, y: 2, z: 2]]]
+levels[3] = [id:3, dimension: 5, mines: [[x: 0, y: 1, z: 2],
+										 [x: 3, y: 4, z: 0],
+										 [x: 4, y: 2, z: 3]]]
+levels[4] = [id:4, dimension: 6, mines: [[x: 1, y: 1, z: 1],
+										 [x: 4, y: 4, z: 4],
+										 [x: 4, y: 2, z: 1],
+										 [x: 1, y: 3, z: 4]]]
+levels[5] = [id:5, dimension: 7, mines: [[x: 0, y: 1, z: 2],
+										 [x: 4, y: 5, z: 6],
+										 [x: 6, y: 2, z: 1],
+										 [x: 3, y: 6, z: 3],
+										 [x: 1, y: 0, z: 6],]]
 
-def level = levels[2]
+
+def level = levels[5]
 def dimension = level.dimension
 
 def minefield = [:]
@@ -61,11 +75,11 @@ def addRadiation(minefield, x, y, z) {
 }
 
 def minefieldId = level.id
-def id = minefieldId * 100
+def id = minefieldId * 1000
 
-println "INSERT INTO mine_field(id, size)VALUES (${level.id}, ${level.dimension});"
+println "INSERT INTO level(id, size)VALUES (${level.id}, ${level.dimension});"
 println ""
 
 minefield.each {
-	println "INSERT INTO sector(id, mine_field_id, x, y, z, radiation, mine) VALUES (${id++}, $minefieldId, ${it.value.x}, ${it.value.y}, ${it.value.z}, ${it.value.radiation}, ${it.value.isMine});"
+	println "INSERT INTO sector(id, level_id, x, y, z, radiation, has_mine) VALUES (${id++}, $minefieldId, ${it.value.x}, ${it.value.y}, ${it.value.z}, ${it.value.radiation}, ${it.value.isMine});"
 }
